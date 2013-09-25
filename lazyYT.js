@@ -26,7 +26,7 @@
             .addClass('lazyYT-image-loaded');
 
         $el.on('hover', function () {
-            if (!$el.hasClass('lazyYT-video-loaded')) {
+            if (!$el.hasClass('lazyYT-video-loaded') && $el.hasClass('lazyYT-image-loaded')) {
                 $el.html('<iframe width="' + width + '" height="' + height + '" src="//www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen></iframe>')
                     .removeClass('lazyYT-image-loaded')
                     .addClass('lazyYT-video-loaded');
