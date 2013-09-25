@@ -1,4 +1,4 @@
-/*! LazyYT (lazy load Youtube videos plugin) - v0.1.2 - 2013-09-24
+/*! LazyYT (lazy load Youtube videos plugin) - v0.2.0 - 2013-09-24
 * Usage: <div class="lazyYT" data-youtube-id="laknj093n" data-width="300" data-height="200">loading...</div>
 * Copyright (c) 2013 Tyler Pearson; Licensed MIT */
 
@@ -29,9 +29,10 @@
             $('#lazyYT-title-' + id).text(data.entry.title.$t);
         });
 
-        $el.on('hover', function () {
+        $el.on('click', function (e) {
+            e.preventDefault();
             if (!$el.hasClass('lazyYT-video-loaded') && $el.hasClass('lazyYT-image-loaded')) {
-                $el.html('<iframe width="' + width + '" height="' + height + '" src="//www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen></iframe>')
+                $el.html('<iframe width="' + width + '" height="' + height + '" src="//www.youtube.com/embed/' + id + '?autoplay=1" frameborder="0" allowfullscreen></iframe>')
                     .removeClass('lazyYT-image-loaded')
                     .addClass('lazyYT-video-loaded');
             }
