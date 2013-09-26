@@ -1,4 +1,4 @@
-/*! LazyYT (lazy load Youtube videos plugin) - v0.2.0 - 2013-09-24
+/*! LazyYT (lazy load Youtube videos plugin) - v0.1.2 - 2013-09-24
 * Usage: <div class="lazyYT" data-youtube-id="laknj093n" data-width="300" data-height="200">loading...</div>
 * Copyright (c) 2013 Tyler Pearson; Licensed MIT */
 
@@ -10,6 +10,10 @@
             width = $el.data('width'),
             height = $el.data('height'),
             id = $el.data('youtube-id');
+
+        if (typeof width === 'undefined' || typeof width === 'undefined' || typeof id === 'undefined') {
+            throw new Error('lazyYT is missing a required data attribute.');
+        }
 
         $el.css({
             'position': 'relative',
