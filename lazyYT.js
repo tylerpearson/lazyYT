@@ -65,6 +65,7 @@
         videoEmbed.height = height;
         videoEmbed.src = '//www.youtube.com/embed/' + id + '?autoplay=1';
         videoEmbed.frameborder = 0;
+        videoEmbed.setAttribute('allowfullscreen', '');
 
         div.addEventListener('click', function(e){
           e.preventDefault();
