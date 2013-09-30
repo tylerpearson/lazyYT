@@ -17,7 +17,31 @@
         handleYouTubeData = function(){
           var youTubeData = JSON.parse(this.responseText);
           titleP.innerHTML = youTubeData.entry.title.$t;
-        };
+        },
+
+        handleClick = (function(div, videoEmbed){
+          if(w.addEventListener){
+            div.addEventListener('click', function(e){
+              e.preventDefault();
+              if(!div.className.match(/(?:\s|^)(lazyYT-video-loaded)(?:\s|$)/) && div.className.match(/(?:\s|^)(lazyYT-image-loaded)(?:\s|$)/)){
+                div.innerHTML = '';
+                div.appendChild(videoEmbed);
+                div.className = div.className.replace(/(\s|^)(lazyYT-image-loaded)(\s|$)/, '');
+                div.className += ' lazyYT-video-loaded';
+              }
+            }, false);
+          }else if(w.attachEvent){
+            div.attachEvent('click', function(e){
+              e.preventDefault();
+              if(!div.className.match(/(?:\s|^)(lazyYT-video-loaded)(?:\s|$)/) && div.className.match(/(?:\s|^)(lazyYT-image-loaded)(?:\s|$)/)){
+                div.innerHTML = '';
+                div.appendChild(videoEmbed);
+                div.className = div.className.replace(/(\s|^)(lazyYT-image-loaded)(\s|$)/, '');
+                div.className += ' lazyYT-video-loaded';
+              }
+            });
+          }
+        }(div, videoEmbed));
 
         oReq.onload = handleYouTubeData;
         oReq.open('get', 'https://gdata.youtube.com/feeds/api/videos/' + id + '?v=2&alt=json', true);
@@ -67,15 +91,7 @@
         videoEmbed.frameborder = 0;
         videoEmbed.setAttribute('allowfullscreen', '');
 
-        div.addEventListener('click', function(e){
-          e.preventDefault();
-          if(!div.className.match(/(?:\s|^)(lazyYT-video-loaded)(?:\s|$)/) && div.className.match(/(?:\s|^)(lazyYT-image-loaded)(?:\s|$)/)){
-            div.innerHTML = '';
-            div.appendChild(videoEmbed);
-            div.className = div.className.replace(/(\s|^)(lazyYT-image-loaded)(\s|$)/, '');
-            div.className += ' lazyYT-video-loaded';
-          }
-        }, false);
+        handleClick;
       }
     }
   };
@@ -86,8 +102,7 @@
       w.removeEventListener('load', w.lazyYT, false);
     }, false);
     w.addEventListener('load', w.lazyYT, false);
-  }
-  else if(w.attachEvent){
+  }else if(w.attachEvent){
     w.attachEvent('onload', w.lazyYT);
   }
 }(this, document));
