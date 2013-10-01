@@ -44,7 +44,7 @@
         }(div, videoEmbed));
 
         oReq.onload = handleYouTubeData;
-        oReq.open('get', 'https://gdata.youtube.com/feeds/api/videos/' + id + '?v=2&alt=json', true);
+        oReq.open('get', 'https://gdata.youtube.com/feeds/api/videos/' + id + '?v=2&alt=json', false);
         oReq.send();
 
         div.style['position'] = 'relative';
