@@ -5,6 +5,10 @@ lazyYT.js
 
 This is a jQuery plugin to lazy load Youtube videos. On the initial load, the `div` will be replaced by a preview `img` of the video. On hover, the preview `img` will be replaced by the `iframe` Youtube video.
 
+## Blog Post
+
+To read more information on the plugin and access a demo, view the intro post on [newmediacampaigns.com](http://www.newmediacampaigns.com/blog/lazyytjs-a-jquery-plugin-to-lazy-load-youtube-videos).
+
 ## Setup
 
 ```html
