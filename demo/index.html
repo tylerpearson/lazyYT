@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>lazyYT jQuery plugin demo</title>
+        <meta name="description" content="">
+
+        <style>
+            body {
+                background-color: #252525;
+            }
+            .container {
+                margin: 100px auto 0;
+                width: 420px;
+            }
+        </style>
+
+    </head>
+    <body>
+
+        <div class="container">
+            <div class="js-lazyYT" data-youtube-id="_oEA18Y8gM0" data-width="420" data-height="315"></div>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="../lazyYT.js" type="text/javascript"></script>
+        <script>
+            $('.js-lazyYT').lazyYT();
+        </script>
+
+    </body>
+</html>
