@@ -43,7 +43,7 @@
             'position': 'relative',
             'height': height,
             'width': width,
-            'background': 'url(http://img.youtube.com/vi/' + id + '/0.jpg) center center no-repeat',
+            'background': 'url(http://img.youtube.com/vi/' + id + '/maxresdefault.jpg) center center no-repeat',
             'cursor': 'pointer',
             '-webkit-background-size': 'cover',
             '-moz-background-size': 'cover',

@@ -12,7 +12,7 @@ To read more information on the plugin and access a demo, view the intro post on
 ## Setup
 
 ```html
-<div class="lazyYT" data-youtube-id="laknj093n" data-width="300" data-height="200">loading...</div>
+<div class="lazyYT" data-youtube-id="_oEA18Y8gM0" data-width="300" data-height="200">loading...</div>
 ```
 
 1. Add a `div` where you want the video to be located. Add the id of the Youtube video to the data attribute `youtube-id`.
