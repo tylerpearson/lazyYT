@@ -16,8 +16,8 @@ To read more information on the plugin and access a demo, view the intro post on
 ```
 
 1. Add a `div` where you want the video to be located. Add the id of the Youtube video to the data attribute `youtube-id`.
-2. Add the width the video should be to `data-width`. A percentage is fine for fluid videos.
-3. Add the height the video should be to `data-height`.
+2. Add the video width to `data-width`. A percentage is fine for fluid videos.
+3. Add the video height to `data-height`.
 4. Get it started with `$('.lazyYT').lazyYT();`
 
 
