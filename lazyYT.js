@@ -33,7 +33,8 @@
         var $el = el,
             width = $el.data('width'),
             height = $el.data('height'),
-            id = $el.data('youtube-id');
+            id = $el.data('youtube-id'),
+            youtubeParameters = $el.data('parameters') || '';
 
         if (typeof width === 'undefined' || typeof height === 'undefined' || typeof id === 'undefined') {
             throw new Error('lazyYT is missing a required data attribute.');
@@ -60,7 +61,7 @@
         $el.on('click', function (e) {
             e.preventDefault();
             if (!$el.hasClass('lazyYT-video-loaded') && $el.hasClass('lazyYT-image-loaded')) {
-                $el.html('<iframe width="' + width + '" height="' + height + '" src="//www.youtube.com/embed/' + id + '?autoplay=1" frameborder="0" allowfullscreen></iframe>')
+                $el.html('<iframe width="' + width + '" height="' + height + '" src="//www.youtube.com/embed/' + id + '?autoplay=1&' + youtubeParameters + '" frameborder="0" allowfullscreen></iframe>')
                     .removeClass('lazyYT-image-loaded')
                     .addClass('lazyYT-video-loaded');
             }
