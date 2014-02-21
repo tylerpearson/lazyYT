@@ -1,6 +1,7 @@
-/*! LazyYT (lazy load Youtube videos plugin) - v0.1.5 - 2013-01-13
-* Usage: <div class="lazyYT" data-youtube-id="laknj093n" data-width="300" data-height="200">loading...</div>
+/*! LazyYT (lazy load Youtube videos plugin) - v0.2.0 - 2014-02-21
+* Usage: <div class="lazyYT" data-youtube-id="laknj093n" data-width="300" data-height="200" data-parameters="rel=0">loading...</div>
 * Copyright (c) 2014 Tyler Pearson; Licensed MIT */
+
 
 ;(function ($) {
     'use strict';
