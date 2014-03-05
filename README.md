@@ -11,7 +11,7 @@ To read more information on the plugin and access a demo, view the intro post on
 
 ## Demo
 
-[View the demo.](http://tylerp.co/lazyYT)
+[View the demo.](http://tylerp.me/lazyYT)
 
 ## Setup
 
