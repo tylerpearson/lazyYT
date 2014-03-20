@@ -2,7 +2,7 @@
 
 ## Description
 
-This is a jQuery plugin to lazy load Youtube videos. On the initial load, the `div` will be replaced by a preview `img` of the video. On hover, the preview `img` will be replaced by the `iframe` Youtube video.
+This is a jQuery plugin to lazy load Youtube videos. On the initial load, the `div` will be replaced by a preview `img` of the video. On click of the image, the preview `img` will be replaced by the autoplaying `iframe` Youtube video.
 
 ## Intro
 
