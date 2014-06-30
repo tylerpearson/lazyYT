@@ -1,5 +1,5 @@
-/*! LazyYT (lazy load Youtube videos plugin) - v0.3.3 - 2014-05-19
-* Usage: <div class="lazyYT" data-youtube-id="laknj093n" data-width="300" data-height="200" data-parameters="rel=0">loading...</div>
+/*! LazyYT (lazy load Youtube videos plugin) - v0.3.4 - 2014-06-30
+* Usage: <div class="lazyYT" data-youtube-id="laknj093n" ratio="16:9" data-parameters="rel=0">loading...</div>
 * Copyright (c) 2014 Tyler Pearson; Licensed MIT */
 
 
@@ -9,22 +9,26 @@
     function setUp($el) {
         var width = $el.data('width'),
             height = $el.data('height'),
+            ratio = $el.data('ratio'),
             id = $el.data('youtube-id'),
+            aspectRatio = ['16', '9'],
+            paddingBottom = 0,
             youtubeParameters = $el.data('parameters') || '';
 
-        if (typeof width === 'undefined' || typeof height === 'undefined' || typeof id === 'undefined') {
-            throw new Error('lazyYT is missing a required data attribute.');
+        if (typeof width === 'undefined' || typeof height === 'undefined') {
+          height = 0;
+          width = '100%';
+          aspectRatio = (ratio.split(":")[1] / ratio.split(":")[0]) * 100;
+          paddingBottom = aspectRatio + '%';
         }
 
         $el.css({
             'position': 'relative',
             'height': height,
             'width': width,
-            'background': 'url(http://img.youtube.com/vi/' + id + '/0.jpg) center center no-repeat',
+            'padding-bottom': paddingBottom,
+            'background': 'url(http://img.youtube.com/vi/' + id + '/hqdefault.jpg) center center no-repeat',
             'cursor': 'pointer',
-            '-webkit-background-size': 'cover',
-            '-moz-background-size': 'cover',
-            '-o-background-size': 'cover',
             'background-size': 'cover'
         })
             .html('<p id="lazyYT-title-' + id + '" class="lazyYT-title"></p><div class="lazyYT-button"></div>')
