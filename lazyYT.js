@@ -12,21 +12,21 @@
             ratio = $el.data('ratio'),
             id = $el.data('youtube-id'),
             aspectRatio = ['16', '9'],
-            paddingBottom = 0,
+            paddingTop = 0,
             youtubeParameters = $el.data('parameters') || '';
 
         if (typeof width === 'undefined' || typeof height === 'undefined') {
           height = 0;
           width = '100%';
           aspectRatio = (ratio.split(":")[1] / ratio.split(":")[0]) * 100;
-          paddingBottom = aspectRatio + '%';
+          paddingTop = aspectRatio + '%';
         }
 
         $el.css({
             'position': 'relative',
             'height': height,
             'width': width,
-            'padding-bottom': paddingBottom,
+            'padding-top': paddingTop,
             'background': 'url(http://img.youtube.com/vi/' + id + '/hqdefault.jpg) center center no-repeat',
             'cursor': 'pointer',
             'background-size': 'cover'
@@ -41,7 +41,7 @@
         $el.on('click', function (e) {
             e.preventDefault();
             if (!$el.hasClass('lazyYT-video-loaded') && $el.hasClass('lazyYT-image-loaded')) {
-                $el.html('<iframe width="' + width + '" height="' + height + '" src="//www.youtube.com/embed/' + id + '?autoplay=1&' + youtubeParameters + '" frameborder="0" allowfullscreen></iframe>')
+                $el.html('<iframe width="' + width + '" height="' + height + '" src="//www.youtube.com/embed/"' + id + '?autoplay=1&' + youtubeParameters + '" style="position:absolute; top:0; left:0; width:100%; height:100%;" frameborder="0" allowfullscreen></iframe>')
                     .removeClass('lazyYT-image-loaded')
                     .addClass('lazyYT-video-loaded');
             }
