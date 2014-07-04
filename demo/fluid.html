@@ -7,7 +7,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>lazyYT jQuery plugin demo</title>
+        <title>Fluid width - lazyYT jQuery plugin demo</title>
         <meta name="description" content="">
 
         <link rel="stylesheet" href="../lazyYT.css">
@@ -16,9 +16,15 @@
             body {
                 background-color: #252525;
             }
+            h1 {
+                text-align: center;
+                font-size: 2em;
+                color: #fff;
+            }
             .container {
-                margin: 100px auto 0;
-                width: 560px;
+                margin: 100px auto;
+                width: 90%;
+                max-width: 1140px;
             }
         </style>
 
@@ -26,7 +32,8 @@
     <body>
 
         <div class="container">
-            <div class="js-lazyYT" data-youtube-id="_oEA18Y8gM0" data-width="560" data-height="315" data-parameters="rel=0"></div>
+            <h1>Fluid width video</h1>
+            <div class="js-lazyYT" data-youtube-id="_oEA18Y8gM0" data-ratio="16:9"></div>
         </div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
