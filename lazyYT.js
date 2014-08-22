@@ -27,7 +27,7 @@
             'height': height,
             'width': width,
             'padding-top': paddingTop,
-            'background': 'url(' + window.location.protocol + '//img.youtube.com/vi/' + id + '/hqdefault.jpg) center center no-repeat',
+            'background': 'url(//img.youtube.com/vi/' + id + '/hqdefault.jpg) center center no-repeat',
             'cursor': 'pointer',
             'background-size': 'cover'
         })
