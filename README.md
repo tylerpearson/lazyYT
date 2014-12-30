@@ -10,8 +10,8 @@ To read more information on the plugin and access a demo, view the intro post on
 
 ## Demo
 
-[View the demo of v1.0.1](http://works.daugilas.com/lazyYT/demo/index.html)
-[View the demo.](http://tylerp.me/lazyYT)
+1. [Demo of v1.0.1](http://works.daugilas.com/lazyYT/demo/index.html)
+2. [View the demo.](http://tylerp.me/lazyYT) (older version)
 
 ## Setup
 
