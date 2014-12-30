@@ -6,6 +6,25 @@
 * Contributors: https://github.com/tylerpearson/lazyYT/graphs/contributors || https://github.com/daugilas/lazyYT/graphs/contributors
 */
 
+.lazyYT-container {
+  position: relative;
+  display: block;
+  height: 0;
+  padding: 0 0 56.25% 0;
+  overflow: hidden;
+  background-color: #000000;
+}
+
+.lazyYT-container iframe {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
 /*
  * Video Title (YouTube style)
  */
@@ -50,6 +69,21 @@
 .lazyYT-container .html5-title-text:hover {
   color: #fff;
   text-decoration: underline;
+}
+
+/*
+ * Thumbnail
+ */
+
+.ytp-thumbnail {
+  padding-bottom: inherit;
+  cursor: pointer;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+     -moz-background-size: cover;
+       -o-background-size: cover;
+          background-size: cover;
 }
 
 /*
