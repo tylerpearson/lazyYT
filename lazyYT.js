@@ -31,8 +31,6 @@
         //
         // This HTML will be placed inside 'lazyYT' container
         //
-        // Video title (info bar)
-        innerHtml.push('<p id="lazyYT-title-' + id + '" class="lazyYT-title"></p>');
         // Play button from YouTube (exactly as it is in YouTube)
         innerHtml.push('<div class="ytp-large-play-button" style="transform: scale(0.563888888888889);">');
           innerHtml.push('<svg>');
@@ -40,6 +38,17 @@
             innerHtml.push('<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" points="33.3,41.4 33.3,17.75 56,29.6"></polygon>');
           innerHtml.push('</svg>');
         innerHtml.push('</div>'); // end of .ytp-large-play-button
+        
+        // Video title (info bar)
+        innerHtml.push('<div class="html5-info-bar">');
+        innerHtml.push('<div class="html5-title">');
+        innerHtml.push('<div class="html5-title-text-wrapper">');
+        innerHtml.push('<a id="lazyYT-title-', id, '" class="html5-title-text" target="_blank" tabindex="3100" href="https://www.youtube.com/watch?v=', id, '">');
+        innerHtml.push('Loading...');
+        innerHtml.push('</a>');
+        innerHtml.push('</div>'); // .html5-title
+        innerHtml.push('</div>'); // .html5-title-text-wrapper
+        innerHtml.push('</div>'); // end of Video title .html5-info-bar
 
         $el.css({
             'position': 'relative',
@@ -54,7 +63,7 @@
             .addClass('lazyYT-image-loaded');
 
         $.getJSON('https://gdata.youtube.com/feeds/api/videos/' + id + '?v=2&alt=json', function (data) {
-            $('#lazyYT-title-' + id).text(data.entry.title.$t);
+            $el.find('#lazyYT-title-' + id).text(data.entry.title.$t);
         });
 
         $el.on('click', function (e) {
@@ -70,7 +79,7 @@
 
     $.fn.lazyYT = function () {
         return this.each(function () {
-            var $el = $(this).css('cursor', 'pointer');
+            var $el = $(this).css('cursor', 'pointer').addClass('lazyYT-container');
             setUp($el);
         });
     };
