@@ -19,6 +19,7 @@
             padding_bottom,
             innerHtml = [],
             $thumb,
+            thumb_img,
             loading_text = $el.text() ? $el.text() : settings.loading_text,
             youtube_parameters = $el.data('parameters') || '';
         
@@ -32,8 +33,9 @@
           $el.width(width);
           padding_bottom = (width * ratio[1] / ratio[0]) + 'px';
         } else {
+          width = $el.width();
           padding_bottom = (ratio[1] / ratio[0] * 100) + '%';
-        }        
+        }
         
         //
         // This HTML will be placed inside 'lazyYT' container
@@ -66,8 +68,20 @@
         })
           .html(innerHtml.join(''));
         
+        if (width > 640) {
+          thumb_img = 'maxresdefault.jpg';
+        } else if (width > 480) {
+          thumb_img = 'sddefault.jpg';
+        } else if (width > 320) {
+          thumb_img = 'hqdefault.jpg';
+        } else if (width > 120) {
+          thumb_img = 'mqdefault.jpg';
+        } else {
+          thumb_img = 'default.jpg';
+        }
+        
         $thumb = $el.find('.ytp-thumbnail').css({
-            'background-image': 'url(http://img.youtube.com/vi/' + id + '/hqdefault.jpg)'
+            'background-image': ['url(http://img.youtube.com/vi/', id, '/', thumb_img, ')'].join('')
         })
           .addClass('lazyYT-image-loaded')
           .on('click', function (e) {
