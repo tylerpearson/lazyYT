@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>lazyYT jQuery plugin demo</title>
+        <meta name="description" content="">
+
+        <link rel="stylesheet" href="../lazyYT.css">
+
+        <style>
+            body {
+                background-color: #252525;
+                color: #ccc;
+            }
+            h1 {
+                text-align: center;
+                font-size: 2em;
+                color: #fff;
+            }
+            .container {
+                margin: 100px auto;
+                width: 90%;
+                max-width: 640px;
+            }
+            a {
+              color: #fff;
+            }
+            li {
+              margin: 5px 0;
+            }
+        </style>
+
+    </head>
+    <body>
+
+        <div class="container">
+            <h1>lazyYT demo</h1>
+            
+            <ul>
+              <li>Fixed size video container <a href="fixed.html" target="_blank">fixed.html</a></li>
+              <li>Fluid video container <a href="fluid.html" target="_blank">fluid.html</a></li>
+              <li>Video Grid <a href="grid.html" target="_blank">grid.html</a></li>
+            </ul>
+            
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="../lazyYT.js"></script>
+        <script>
+            $('.item.odd .js-lazyYT').lazyYT();
+            
+            // Pass some parameters
+            $('.item.even .js-lazyYT').lazyYT({
+              loading_text: 'It is loading!...',
+              default_ratio: '16:9'
+            });
+        </script>
+
+    </body>
+</html>
