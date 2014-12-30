@@ -34,6 +34,12 @@
           padding_bottom = (width * ratio[1] / ratio[0]) + 'px';
         } else {
           width = $el.width();
+		      
+          // no width means that container is fluid and will be the size of its parent
+          if (width == 0) {
+            width = $el.parent().width();
+          }
+		      
           padding_bottom = (ratio[1] / ratio[0] * 100) + '%';
         }
         
@@ -78,6 +84,8 @@
           thumb_img = 'hqdefault.jpg';
         } else if (width > 120) {
           thumb_img = 'mqdefault.jpg';
+        } else if (width == 0) { // sometimes it fails on fluid layout
+          thumb_img = 'hqdefault.jpg';
         } else {
           thumb_img = 'default.jpg';
         }
