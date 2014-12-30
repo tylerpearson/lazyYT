@@ -5,29 +5,35 @@
 * http://creativecommons.org/licenses/by-sa/4.0/
 * Contributors: https://github.com/tylerpearson/lazyYT/graphs/contributors || https://github.com/daugilas/lazyYT/graphs/contributors
 * 
-* Usage: <div class="lazyYT" data-youtube-id="laknj093n" ratio="16:9" data-parameters="rel=0">loading...</div>
+* Usage: <div class="lazyYT" data-youtube-id="laknj093n" data-parameters="rel=0">loading...</div>
 */
 
 ;(function ($) {
     'use strict';
 
-    function setUp($el) {
+    function setUp($el, settings) {
         var width = $el.data('width'),
             height = $el.data('height'),
-            ratio = $el.data('ratio'),
+            ratio = ($el.data('ratio')) ? $el.data('ratio') : settings.default_ratio,
             id = $el.data('youtube-id'),
-            aspectRatio = ['16', '9'],
-            paddingBottom = 0,
+            padding_bottom,
             innerHtml = [],
             $thumb,
-            youtubeParameters = $el.data('parameters') || '';
-
-        if (typeof width === 'undefined' || typeof height === 'undefined') {
-          height = 0;
-          width = '100%';
-          aspectRatio = (ratio.split(":")[1] / ratio.split(":")[0]) * 100;
-          paddingBottom = aspectRatio + '%';
-        }
+            loading_text = $el.text() ? $el.text() : settings.loading_text,
+            youtube_parameters = $el.data('parameters') || '';
+        
+        ratio = ratio.split(":");
+        
+        // width and height might override default_ratio value
+        if (typeof width === 'number' && typeof height === 'number') {
+          $el.width(width);
+          padding_bottom = height + 'px';
+        } else if (typeof width === 'number') {
+          $el.width(width);
+          padding_bottom = (width * ratio[1] / ratio[0]) + 'px';
+        } else {
+          padding_bottom = (ratio[1] / ratio[0] * 100) + '%';
+        }        
         
         //
         // This HTML will be placed inside 'lazyYT' container
@@ -49,14 +55,14 @@
         innerHtml.push('<div class="html5-title">');
         innerHtml.push('<div class="html5-title-text-wrapper">');
         innerHtml.push('<a id="lazyYT-title-', id, '" class="html5-title-text" target="_blank" tabindex="3100" href="https://www.youtube.com/watch?v=', id, '">');
-        innerHtml.push('Loading...');
+        innerHtml.push(loading_text);
         innerHtml.push('</a>');
         innerHtml.push('</div>'); // .html5-title
         innerHtml.push('</div>'); // .html5-title-text-wrapper
         innerHtml.push('</div>'); // end of Video title .html5-info-bar
 
         $el.css({
-            'padding-bottom': paddingBottom
+            'padding-bottom': padding_bottom
         })
           .html(innerHtml.join(''));
         
@@ -67,7 +73,7 @@
           .on('click', function (e) {
             e.preventDefault();
             if (!$el.hasClass('lazyYT-video-loaded') && $thumb.hasClass('lazyYT-image-loaded')) {
-              $el.html('<iframe src="//www.youtube.com/embed/' + id + '?autoplay=1&' + youtubeParameters + '" frameborder="0" allowfullscreen></iframe>')
+              $el.html('<iframe src="//www.youtube.com/embed/' + id + '?autoplay=1&' + youtube_parameters + '" frameborder="0" allowfullscreen></iframe>')
                 .addClass('lazyYT-video-loaded');
             }
           });
@@ -78,11 +84,19 @@
 
     }
 
-    $.fn.lazyYT = function () {
-        return this.each(function () {
-            var $el = $(this).addClass('lazyYT-container');
-            setUp($el);
-        });
+    $.fn.lazyYT = function (newSettings) {
+      var defaultSettings = {
+        loading_text: 'Loading...',
+        default_ratio: '16:9',
+        callback: null, // ToDO execute callback if given
+        container_class: 'lazyYT-container'
+      };
+      var settings = $.extend(defaultSettings, newSettings);
+      
+      return this.each(function () {
+          var $el = $(this).addClass(settings.container_class);
+          setUp($el, settings);
+      });
     };
 
 }(jQuery));
