@@ -7,8 +7,8 @@
     'use strict';
 
     function setUp($el) {
-        var width = $el.data('width'),
-            height = $el.data('height'),
+        var width = $el.data('width')  || $el.width(),
+            height = $el.data('height') || $el.height(),
             ratio = $el.data('ratio'),
             id = $el.data('youtube-id'),
             aspectRatio = ['16', '9'],
