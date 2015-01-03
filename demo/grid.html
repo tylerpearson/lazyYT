@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Grid - lazyYT jQuery plugin demo</title>
+        <meta name="description" content="">
+
+        <link rel="stylesheet" href="../lazyYT.css">
+
+        <style>
+            body {
+                background-color: #252525;
+            }
+            h1 {
+                text-align: center;
+                font-size: 2em;
+                color: #fff;
+            }
+            .container {
+                margin: 100px auto;
+                width: 90%;
+                max-width: 1140px;
+            }
+            .grid .item {
+              display: inline-block;
+              width: 32%;
+              margin-left: 1%;
+              margin-bottom: 1%;
+            }
+        </style>
+
+    </head>
+    <body>
+
+        <div class="container">
+            <h1>Video grid</h1>
+            
+            <div class="grid">
+              
+              <div class="item odd">
+                <div class="js-lazyYT" data-youtube-id="_oEA18Y8gM0"></div>
+              </div>
+              <div class="item even">
+                <div class="js-lazyYT" data-youtube-id="tuMgJrFoAFY">Loading video...</div>
+              </div>
+              <div class="item odd">
+                <div class="js-lazyYT" data-youtube-id="HLEAA_tIpbY"></div>
+              </div>
+              
+              <div class="item even">
+                <div class="js-lazyYT" data-youtube-id="hjUeXHZBLNo"></div>
+              </div>
+              <div class="item odd">
+                <div class="js-lazyYT" data-youtube-id="QK8mJJJvaes"></div>
+              </div>
+              <div class="item even">
+                <div class="js-lazyYT" data-youtube-id="156iOcnJdbw"></div>
+              </div>
+              
+              <div class="item odd">
+                <div class="js-lazyYT" data-youtube-id="dZREfVaIkl8"></div>
+              </div>
+              <div class="item even">
+                <div class="js-lazyYT" data-youtube-id="gBXQ9eQpijc"></div>
+              </div>
+              <div class="item odd">
+                <div class="js-lazyYT" data-youtube-id="RPO4tbV4UHk"></div>
+              </div>
+              
+              <div style="color: #eee; text-align: center;">Just take a look how fast they all load!</div>
+              
+            </div>
+            
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="../lazyYT.js"></script>
+        <script>
+        $( document ).ready(function() {
+            $('.item.odd .js-lazyYT').lazyYT();
+            
+            // Pass some parameters
+            $('.item.even .js-lazyYT').lazyYT({
+              loading_text: 'It is loading!...',
+              default_ratio: '16:9'
+            });
+        });
+        </script>
+
+    </body>
+</html>
