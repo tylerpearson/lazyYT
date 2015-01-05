@@ -10,13 +10,13 @@ To read more information on the plugin and access a demo, view the intro post on
 
 ## Demo
 
-1. [Demo of v1.0.1](http://works.daugilas.com/lazyYT/demo/index.html)
+1. [Demo of v1.0.2](http://works.daugilas.com/lazyYT/demo/index.html)
 2. [View the demo.](http://tylerp.me/lazyYT) (older version)
 
 ## Setup
 
 ```html
-<div class="lazyYT" data-youtube-id="_oEA18Y8gM0" data-ratio="16:9">loading...</div>
+<div class="lazyYT" data-youtube-id="_oEA18Y8gM0" data-ratio="16:9" data-display-duration="true">loading...</div>
 ```
 
 1. Include the lazyYT JS and CSS files.
