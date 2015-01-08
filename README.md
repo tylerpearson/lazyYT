@@ -22,9 +22,23 @@ To read more information on the plugin and access a demo, view the intro post on
 1. Include the lazyYT JS and CSS files.
 2. Add a `div` where you want the video to be located. Add the id of the Youtube video to the data attribute `youtube-id`.
 3. Either add the video width and height to `data-width` and `data-height`, or add an ascpent ratio like `16:9` to `data-ratio`, none are required.
-5. Any [optional parameters you wanted passed to the iframe url](https://developers.google.com/youtube/player_parameters) should be added to `data-parameters`.
-6. Get it started with `$('.lazyYT').lazyYT();`
+4. Any [optional parameters you wanted passed to the iframe url](https://developers.google.com/youtube/player_parameters) should be added to `data-parameters`.
+5. Get it started with `$('.lazyYT').lazyYT();`
 
+### Parameters / Settings
+
+Default parameters:
+
+```javascript
+$('.js-lazyYT').lazyYT({
+  loading_text: 'Loading...', // displayed instead of video title while its loading
+  default_ratio: '16:9',
+  display_duration: false, // display video duration in bottom right
+  
+  // Advanced settings
+  container_class: 'lazyYT-container' // default CSS depends on this class
+});
+```
 
 ## License
 
