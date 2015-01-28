@@ -76,6 +76,9 @@
         })
           .html(innerHtml.join(''));
         
+      if ($el.data('thumb-img')) {
+          thumb_img = $el.data('thumb-img') + ".jpg";
+      } else {
         if (width > 640) {
           thumb_img = 'maxresdefault.jpg';
         } else if (width > 480) {
@@ -89,6 +92,8 @@
         } else {
           thumb_img = 'default.jpg';
         }
+      }
+
         
         $thumb = $el.find('.ytp-thumbnail').css({
             'background-image': ['url(http://img.youtube.com/vi/', id, '/', thumb_img, ')'].join('')
