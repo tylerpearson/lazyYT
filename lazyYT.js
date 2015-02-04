@@ -102,12 +102,9 @@
             }
           });
 
-        if ("undefined" !== $el.attr('title'))
-            $el.find('#lazyYT-title-' + id).text($el.attr('title'));
-        else
-            $.getJSON('https://gdata.youtube.com/feeds/api/videos/' + id + '?v=2&alt=json', function (data) {
-                $el.find('#lazyYT-title-' + id).text(data.entry.title.$t);
-            });
+        $.getJSON('https://gdata.youtube.com/feeds/api/videos/' + id + '?v=2&alt=json', function (data) {
+            $el.find('#lazyYT-title-' + id).text(data.entry.title.$t);
+        });
 
     }
 
