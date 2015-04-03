@@ -91,16 +91,16 @@
         }
 		
         var urlbase = '//i.ytimg.com/vi/'+id+'/';
-		function check(thumb_check) {
-			if( thumb_check == 'maxresdefault.jpg' ) {	
-				var img = new Image();
-				img.src = urlbase + thumb_check;
-				if( img.width == 0 ) { 
-					thumb_check = 'sddefault.jpg';
-				}
+	function check(thumb_check) {
+		if( thumb_check == 'maxresdefault.jpg' ) {	
+			var img = new Image();
+			img.src = urlbase + thumb_check;
+			if( img.width == 0 ) { 
+				thumb_check = 'sddefault.jpg';
 			}
-		return thumb_check;
 		}
+	return thumb_check;
+	}
 		
         $thumb = $el.find('.ytp-thumbnail').css({ 'background-image': 'url(' + urlbase + check(thumb_img) + ')' })
           .addClass('lazyYT-image-loaded')
