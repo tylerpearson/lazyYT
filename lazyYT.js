@@ -64,7 +64,7 @@
         innerHtml.push('<div class="html5-info-bar">');
         innerHtml.push('<div class="html5-title">');
         innerHtml.push('<div class="html5-title-text-wrapper">');
-        innerHtml.push('<a id="lazyYT-title-', id, '" class="html5-title-text" target="_blank" tabindex="3100" href="https://www.youtube.com/watch?v=', id, '">');
+        innerHtml.push('<a id="lazyYT-title-', id, '" class="html5-title-text" target="_blank" tabindex="3100" href="//www.youtube.com/watch?v=', id, '">');
         innerHtml.push(loading_text);
         innerHtml.push('</a>');
         innerHtml.push('</div>'); // .html5-title
@@ -91,7 +91,7 @@
         }
         
         $thumb = $el.find('.ytp-thumbnail').css({
-            'background-image': ['url(http://img.youtube.com/vi/', id, '/', thumb_img, ')'].join('')
+            'background-image': ['url(//img.youtube.com/vi/', id, '/', thumb_img, ')'].join('')
         })
           .addClass('lazyYT-image-loaded')
           .on('click', function (e) {
@@ -102,7 +102,7 @@
             }
           });
 
-        $.getJSON('https://gdata.youtube.com/feeds/api/videos/' + id + '?v=2&alt=json', function (data) {
+        $.getJSON('//gdata.youtube.com/feeds/api/videos/' + id + '?v=2&alt=json', function (data) {
             $el.find('#lazyYT-title-' + id).text(data.entry.title.$t);
         });
 
