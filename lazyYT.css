@@ -7,6 +7,7 @@
 */
 
 .lazyYT-container {
+  direction:ltr;
   position: relative;
   display: block;
   height: 0;
