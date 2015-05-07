@@ -1,6 +1,6 @@
 /*!
 * lazyYT (lazy load YouTube videos)
-* v1.0.1 - 2014-12-30
+* v1.0.2 - 2015-01-05
 * (CC) This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.
 * http://creativecommons.org/licenses/by-sa/4.0/
 * Contributors: https://github.com/tylerpearson/lazyYT/graphs/contributors || https://github.com/daugilas/lazyYT/graphs/contributors
@@ -15,6 +15,7 @@
         var width = $el.data('width'),
             height = $el.data('height'),
             ratio = ($el.data('ratio')) ? $el.data('ratio') : settings.default_ratio,
+            display_duration = $el.data('display-duration'),
             id = $el.data('youtube-id'),
             padding_bottom,
             innerHtml = [],
@@ -24,6 +25,10 @@
             youtube_parameters = $el.data('parameters') || '';
         
         ratio = ratio.split(":");
+        
+        if (typeof display_duration != "boolean") {
+          display_duration = settings.display_duration;
+        }
         
         // width and height might override default_ratio value
         if (typeof width === 'number' && typeof height === 'number') {
@@ -58,6 +63,10 @@
           innerHtml.push('</svg>');
           innerHtml.push('</div>'); // end of .ytp-large-play-button
         
+          // video time from YouTube (exactly as it is in YouTube)
+          if (display_duration) {
+            innerHtml.push('<span class="video-time" style="display:none;"></span>');
+          }
         innerHtml.push('</div>'); // end of .ytp-thumbnail
         
         // Video title (info bar)
@@ -104,6 +113,29 @@
 
         $.getJSON('//gdata.youtube.com/feeds/api/videos/' + id + '?v=2&alt=json', function (data) {
             $el.find('#lazyYT-title-' + id).text(data.entry.title.$t);
+            
+            if (display_duration) {
+              var duration = data.entry.media$group.yt$duration.seconds;
+              if (duration > 0) {
+                
+                var time_string = [];
+                
+                // Hours extraction
+                if (duration > 3599) {
+                  time_string.push(parseInt(duration / 3600));
+                  duration %= 3600;
+                }
+                // Minutes extraction with leading zero
+                time_string.push(('0' + parseInt(duration / 60)).slice(-2));
+                // Seconds extraction with leading zero
+                time_string.push(('0' + duration % 60).slice(-2));
+                
+                $el.find('.video-time')
+                  .text(time_string.join(':'))
+                  .show();
+                  
+              }
+            }
         });
 
     }
@@ -112,6 +144,7 @@
       var defaultSettings = {
         loading_text: 'Loading...',
         default_ratio: '16:9',
+        display_duration: false,
         callback: null, // ToDO execute callback if given
         container_class: 'lazyYT-container'
       };

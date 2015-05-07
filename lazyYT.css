@@ -1,6 +1,6 @@
 /*!
 * lazyYT (lazy load YouTube videos)
-* v1.0.1 - 2014-12-30
+* v1.0.2 - 2015-01-05
 * (CC) This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.
 * http://creativecommons.org/licenses/by-sa/4.0/
 * Contributors: https://github.com/tylerpearson/lazyYT/graphs/contributors || https://github.com/daugilas/lazyYT/graphs/contributors
@@ -114,4 +114,25 @@
 .ytp-large-play-button:focus .ytp-large-play-button-svg {
   opacity: 1;
   fill: #cc181e;
+}
+
+/*
+ * Video time (YouTube style)
+ */
+
+.video-time {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  height: 14px;
+  padding: 0 4px;
+  font-family: Arial, Helvetica, Sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 14px;
+  color: #fff !important;
+  background-color: #000;
+  opacity: .75;
+  filter: alpha(opacity=75);
+  zoom: 1;
 }
