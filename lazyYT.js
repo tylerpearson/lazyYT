@@ -60,16 +60,18 @@
         
         innerHtml.push('</div>'); // end of .ytp-thumbnail
         
-        // Video title (info bar)
-        innerHtml.push('<div class="html5-info-bar">');
-        innerHtml.push('<div class="html5-title">');
-        innerHtml.push('<div class="html5-title-text-wrapper">');
-        innerHtml.push('<a id="lazyYT-title-', id, '" class="html5-title-text" target="_blank" tabindex="3100" href="//www.youtube.com/watch?v=', id, '">');
-        innerHtml.push(loading_text);
-        innerHtml.push('</a>');
-        innerHtml.push('</div>'); // .html5-title
-        innerHtml.push('</div>'); // .html5-title-text-wrapper
-        innerHtml.push('</div>'); // end of Video title .html5-info-bar
+        if (!settings.hide_title) {
+          // Video title (info bar)
+          innerHtml.push('<div class="html5-info-bar">');
+          innerHtml.push('<div class="html5-title">');
+          innerHtml.push('<div class="html5-title-text-wrapper">');
+          innerHtml.push('<a id="lazyYT-title-', id, '" class="html5-title-text" target="_blank" tabindex="3100" href="//www.youtube.com/watch?v=', id, '">');
+          innerHtml.push(loading_text);
+          innerHtml.push('</a>');
+          innerHtml.push('</div>'); // .html5-title
+          innerHtml.push('</div>'); // .html5-title-text-wrapper
+          innerHtml.push('</div>'); // end of Video title .html5-info-bar
+        }
 
         $el.css({
             'padding-bottom': padding_bottom
@@ -102,15 +104,18 @@
             }
           });
 
+      if (!settings.hide_title) {
         $.getJSON('//gdata.youtube.com/feeds/api/videos/' + id + '?v=2&alt=json', function (data) {
             $el.find('#lazyYT-title-' + id).text(data.entry.title.$t);
         });
+      }
 
     }
 
     $.fn.lazyYT = function (newSettings) {
       var defaultSettings = {
         loading_text: 'Loading...',
+        hide_title: false,
         default_ratio: '16:9',
         callback: null, // ToDO execute callback if given
         container_class: 'lazyYT-container'
