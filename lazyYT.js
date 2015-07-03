@@ -15,14 +15,22 @@
         var width = $el.data('width'),
             height = $el.data('height'),
             ratio = ($el.data('ratio')) ? $el.data('ratio') : settings.default_ratio,
-            id = $el.data('youtube-id'),
             padding_bottom,
             innerHtml = [],
             $thumb,
             thumb_img,
             loading_text = $el.text() ? $el.text() : settings.loading_text,
             youtube_parameters = $el.data('parameters') || '';
-        
+
+
+        if($el.data('youtube-id')) {
+          var provider = "youtube"
+                var id = $el.data('youtube-id')
+        } else { 
+          var provider = "vimeo"
+                var id = $el.data('vimeo-id')
+        } 
+
         ratio = ratio.split(":");
         
         // width and height might override default_ratio value
@@ -34,12 +42,12 @@
           padding_bottom = (width * ratio[1] / ratio[0]) + 'px';
         } else {
           width = $el.width();
-		      
+          
           // no width means that container is fluid and will be the size of its parent
           if (width == 0) {
             width = $el.parent().width();
           }
-		      
+          
           padding_bottom = (ratio[1] / ratio[0] * 100) + '%';
         }
         
@@ -64,7 +72,7 @@
         innerHtml.push('<div class="html5-info-bar">');
         innerHtml.push('<div class="html5-title">');
         innerHtml.push('<div class="html5-title-text-wrapper">');
-        innerHtml.push('<a id="lazyYT-title-', id, '" class="html5-title-text" target="_blank" tabindex="3100" href="//www.youtube.com/watch?v=', id, '">');
+        innerHtml.push('<a id="lazyYT-title-', id, '" class="html5-title-text" target="_blank" tabindex="3100" href="https://www.youtube.com/watch?v=', id, '">');
         innerHtml.push(loading_text);
         innerHtml.push('</a>');
         innerHtml.push('</div>'); // .html5-title
@@ -75,36 +83,51 @@
             'padding-bottom': padding_bottom
         })
           .html(innerHtml.join(''));
-        
-        if (width > 640) {
-          thumb_img = 'maxresdefault.jpg';
-        } else if (width > 480) {
-          thumb_img = 'sddefault.jpg';
-        } else if (width > 320) {
-          thumb_img = 'hqdefault.jpg';
-        } else if (width > 120) {
-          thumb_img = 'mqdefault.jpg';
-        } else if (width == 0) { // sometimes it fails on fluid layout
-          thumb_img = 'hqdefault.jpg';
-        } else {
-          thumb_img = 'default.jpg';
+      
+        if(provider == "youtube") {
+          thumb_img = '0.jpg' //The default thumbnail for all videos.
+          
+          $el.find('.ytp-thumbnail').css({
+              'background-image': ['url(http://img.youtube.com/vi/', id, '/', thumb_img, ')'].join('')
+          })
         }
-        
-        $thumb = $el.find('.ytp-thumbnail').css({
-            'background-image': ['url(//img.youtube.com/vi/', id, '/', thumb_img, ')'].join('')
-        })
+
+        if(provider == "vimeo") {
+          $.getJSON('http://vimeo.com/api/oembed.json?url=http%3A//vimeo.com/' + id, function (data) {
+            $el.find('.ytp-thumbnail').css({
+                'background-image': ['url(' , data.thumbnail_url , ')'].join('')
+            })
+          });
+        }
+
+        $thumb = $el.find('.ytp-thumbnail')
           .addClass('lazyYT-image-loaded')
           .on('click', function (e) {
             e.preventDefault();
             if (!$el.hasClass('lazyYT-video-loaded') && $thumb.hasClass('lazyYT-image-loaded')) {
-              $el.html('<iframe src="//www.youtube.com/embed/' + id + '?autoplay=1&' + youtube_parameters + '" frameborder="0" allowfullscreen></iframe>')
+              if(provider == "youtube") {
+                $el.html('<iframe src="//www.youtube.com/embed/' + id + '?autoplay=1&' + youtube_parameters + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>')
                 .addClass('lazyYT-video-loaded');
+              } 
+              if(provider == "vimeo") {
+                $el.html('<iframe src="//player.vimeo.com/video/' + id + '?autoplay=1&" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>')
+                .addClass('lazyYT-video-loaded');
+              }
             }
           });
 
-        $.getJSON('//gdata.youtube.com/feeds/api/videos/' + id + '?v=2&alt=json', function (data) {
-            $el.find('#lazyYT-title-' + id).text(data.entry.title.$t);
-        });
+        if(provider == "youtube") {
+          $.getJSON('https://gdata.youtube.com/feeds/api/videos/' + id + '?v=2&alt=json', function (data) {
+              $el.find('#lazyYT-title-' + id).text(data.entry.title.$t);
+          });
+        }
+        if(provider == "vimeo") {
+          $.getJSON('http://vimeo.com/api/oembed.json?url=http%3A//vimeo.com/' + id, function (data) {
+              console.log(data);
+              $el.find('#lazyYT-title-' + id).text(data.title);
+          });
+        }
+
 
     }
 
