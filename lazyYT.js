@@ -118,7 +118,6 @@
 
         if(provider == "youtube") {
           $.getJSON('https://gdata.youtube.com/feeds/api/videos/' + id + '?v=2&alt=json', function (data) {
-              console.log(data);
               $el.find('#lazyYT-title-' + id).text(data.entry.title.$t);
           });
         }
