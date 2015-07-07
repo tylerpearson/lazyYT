@@ -15,6 +15,7 @@
         var width = $el.data('width'),
             height = $el.data('height'),
             title = $el.attr('title') || $el.data('title'),
+            display_title = $el.data('display-title'),
             ratio = ($el.data('ratio')) ? $el.data('ratio') : settings.default_ratio,
             display_duration = $el.data('display-duration'),
             id = $el.data('youtube-id'),
@@ -26,6 +27,10 @@
             youtube_parameters = $el.data('parameters') || '';
         
         ratio = ratio.split(":");
+        
+        if (typeof display_title != "boolean") {
+          display_title = settings.display_title;
+        }
         
         if (typeof display_duration != "boolean") {
           display_duration = settings.display_duration;
@@ -71,6 +76,7 @@
         innerHtml.push('</div>'); // end of .ytp-thumbnail
         
         // Video title (info bar)
+        if (display_title) {
         innerHtml.push('<div class="html5-info-bar">');
         innerHtml.push('<div class="html5-title">');
         innerHtml.push('<div class="html5-title-text-wrapper">');
@@ -80,6 +86,7 @@
         innerHtml.push('</div>'); // .html5-title
         innerHtml.push('</div>'); // .html5-title-text-wrapper
         innerHtml.push('</div>'); // end of Video title .html5-info-bar
+        }
 
         $el.css({
             'padding-bottom': padding_bottom
@@ -112,7 +119,7 @@
             }
           });
 
-        if (!title || display_duration) {
+        if ((!title && display_title) || display_duration) {
         var youtube_data_url = ['https://www.googleapis.com/youtube/v3/videos?id=', id, '&key=', settings.yt_api_key, '&part=snippet'];
         if (display_duration) youtube_data_url.push(',contentDetails'); // this extra info now costs some quota points, so we retrieve it only when necessary. More on quota: https://developers.google.com/youtube/v3/getting-started#quota
         
@@ -193,6 +200,7 @@
         yt_api_key: yt_api_key,
         
         loading_text: 'Loading...',
+        display_title: true,
         default_ratio: '16:9',
         display_duration: false,
         callback: null, // ToDO execute callback if given
