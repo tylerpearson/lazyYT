@@ -17,9 +17,7 @@ Since 2015-07-08 it uses [Youtube API v3](https://developers.google.com/youtube/
 <div class="lazyYT" data-youtube-id="_oEA18Y8gM0" data-ratio="16:9" data-display-duration="true">loading...</div>
 ```
 
-Get your API_KEY: 
-
-1. Get Your [Youtube API key](https://developers.google.com/youtube/v3/getting-started#before-you-start). It should look something like this: `AIzaSyCawA87g_pgTbSNPhiWAemy-mFKszJGl4M`.
+1. Get Your [Youtube API_KEY](https://developers.google.com/youtube/v3/getting-started#before-you-start). It should look something like this: `AIzaSyCawA87g_pgTbSNPhiWAemy-mFKszJGl4M`.
 2. Include the lazyYT JS and CSS files.
 3. Add a `div` where you want the video to be located. Add the id of the Youtube video to the data attribute `youtube-id`.
 4. Either add the video width and height to `data-width` and `data-height`, or add an ascpent ratio like `16:9` to `data-ratio`, none are required.
