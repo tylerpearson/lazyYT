@@ -14,6 +14,7 @@
     function setUp($el, settings) {
         var width = $el.data('width'),
             height = $el.data('height'),
+            title = $el.attr('title') || $el.data('title'),
             ratio = ($el.data('ratio')) ? $el.data('ratio') : settings.default_ratio,
             display_duration = $el.data('display-duration'),
             id = $el.data('youtube-id'),
@@ -74,7 +75,7 @@
         innerHtml.push('<div class="html5-title">');
         innerHtml.push('<div class="html5-title-text-wrapper">');
         innerHtml.push('<a id="lazyYT-title-', id, '" class="html5-title-text" target="_blank" tabindex="3100" href="https://www.youtube.com/watch?v=', id, '">');
-        innerHtml.push(loading_text);
+        innerHtml.push((title) ? title : loading_text);
         innerHtml.push('</a>');
         innerHtml.push('</div>'); // .html5-title
         innerHtml.push('</div>'); // .html5-title-text-wrapper
@@ -111,11 +112,13 @@
             }
           });
 
+        if (!title || display_duration) {
         var youtube_data_url = ['https://www.googleapis.com/youtube/v3/videos?id=', id, '&key=', settings.yt_api_key, '&part=snippet'];
         if (display_duration) youtube_data_url.push(',contentDetails'); // this extra info now costs some quota points, so we retrieve it only when necessary. More on quota: https://developers.google.com/youtube/v3/getting-started#quota
         
         $.getJSON(youtube_data_url.join(''), function (data) {
             var item = data.items[0];
+            console.log(item.snippet.title);
             
             $el.find('#lazyYT-title-' + id).text(item.snippet.title);
             
@@ -127,6 +130,7 @@
               }
             
         });
+        }
 
     };
     
