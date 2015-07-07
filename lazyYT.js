@@ -133,34 +133,34 @@
     function parseDuration(PT, settings) {
       var output = [];
       var durationInSec = 0;
-      var matches = PT.match(/P((\d*)Y)?((\d*)M)?((\d*)W)?((\d*)D)?T((\d*)H)?((\d*)M)?((\d*)S)?/i);
+      var matches = PT.match(/P(?:(\d*)Y)?(?:(\d*)M)?(?:(\d*)W)?(?:(\d*)D)?T(?:(\d*)H)?(?:(\d*)M)?(?:(\d*)S)?/i);
       var parts = [
         { // years
-          pos: 2,
+          pos: 1,
           multiplier: 86400 * 365
         },
         { // months
-          pos: 4,
+          pos: 2,
           multiplier: 86400 * 30
         },
         { // weeks
-          pos: 6,
+          pos: 3,
           multiplier: 604800
         },
         { // days
-          pos: 8,
+          pos: 4,
           multiplier: 86400
         },
         { // hours
-          pos: 10,
+          pos: 5,
           multiplier: 3600
         },
         { // minutes
-          pos: 12,
+          pos: 6,
           multiplier: 60
         },
         { // seconds
-          pos: 14,
+          pos: 7,
           multiplier: 1
         }
       ];
