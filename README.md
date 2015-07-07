@@ -10,8 +10,7 @@ To read more information on the plugin and access a demo, view the intro post on
 
 ## Demo
 
-1. [Demo of v1.0.2](http://works.daugilas.com/lazyYT/demo/index.html)
-2. [View the demo.](http://tylerp.me/lazyYT) (older version)
+1. [Demo of v1.1.0](http://works.daugilas.com/lazyYT/demo/index.html)
 
 ## Setup
 
@@ -32,10 +31,12 @@ Default parameters:
 ```javascript
 $('.js-lazyYT').lazyYT({
   loading_text: 'Loading...', // displayed instead of video title while its loading
+  display_title: true, // display title in video's info bar
   default_ratio: '16:9',
   display_duration: false, // display video duration in bottom right
   
   // Advanced settings
+  video_loaded_class: 'lazyYT-video-loaded', // adds this class after video loads into container
   container_class: 'lazyYT-container' // default CSS depends on this class
 });
 ```
