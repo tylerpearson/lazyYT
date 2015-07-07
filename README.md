@@ -4,11 +4,8 @@
 
 This is a jQuery plugin to lazy load Youtube videos. On the initial load, the `div` will be appended by a preview `img` of the video. On click of the image, the preview `img` will be replaced by the autoplaying `iframe` Youtube video.
 
-## Intro
+Since 2015-07-08 it uses [Youtube API v3](https://developers.google.com/youtube/v3/). 
 
-Since July'15 it uses Youtube [API v3](https://developers.google.com/youtube/v3/). 
-
-To read more information on the plugin and access a demo, view the intro post on [newmediacampaigns.com](http://www.newmediacampaigns.com/blog/lazyytjs-a-jquery-plugin-to-lazy-load-youtube-videos).
 
 ## Demo
 
