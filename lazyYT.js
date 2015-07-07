@@ -29,29 +29,29 @@
         ratio = ratio.split(":");
         
         if (typeof display_title != "boolean") {
-          display_title = settings.display_title;
+            display_title = settings.display_title;
         }
         
         if (typeof display_duration != "boolean") {
-          display_duration = settings.display_duration;
+            display_duration = settings.display_duration;
         }
         
         // width and height might override default_ratio value
         if (typeof width === 'number' && typeof height === 'number') {
-          $el.width(width);
-          padding_bottom = height + 'px';
+            $el.width(width);
+            padding_bottom = height + 'px';
         } else if (typeof width === 'number') {
-          $el.width(width);
-          padding_bottom = (width * ratio[1] / ratio[0]) + 'px';
+            $el.width(width);
+            padding_bottom = (width * ratio[1] / ratio[0]) + 'px';
         } else {
-          width = $el.width();
-		      
-          // no width means that container is fluid and will be the size of its parent
-          if (width == 0) {
-            width = $el.parent().width();
-          }
-		      
-          padding_bottom = (ratio[1] / ratio[0] * 100) + '%';
+            width = $el.width();
+		        
+            // no width means that container is fluid and will be the size of its parent
+            if (width == 0) {
+                width = $el.parent().width();
+            }
+		        
+            padding_bottom = (ratio[1] / ratio[0] * 100) + '%';
         }
         
         //
@@ -77,15 +77,15 @@
         
         // Video title (info bar)
         if (display_title) {
-        innerHtml.push('<div class="html5-info-bar">');
-        innerHtml.push('<div class="html5-title">');
-        innerHtml.push('<div class="html5-title-text-wrapper">');
-        innerHtml.push('<a id="lazyYT-title-', id, '" class="html5-title-text" target="_blank" tabindex="3100" href="https://www.youtube.com/watch?v=', id, '">');
-        innerHtml.push((title) ? title : loading_text);
-        innerHtml.push('</a>');
-        innerHtml.push('</div>'); // .html5-title
-        innerHtml.push('</div>'); // .html5-title-text-wrapper
-        innerHtml.push('</div>'); // end of Video title .html5-info-bar
+            innerHtml.push('<div class="html5-info-bar">');
+            innerHtml.push('<div class="html5-title">');
+            innerHtml.push('<div class="html5-title-text-wrapper">');
+            innerHtml.push('<a id="lazyYT-title-', id, '" class="html5-title-text" target="_blank" tabindex="3100" href="https://www.youtube.com/watch?v=', id, '">');
+            innerHtml.push((title) ? title : loading_text);
+            innerHtml.push('</a>');
+            innerHtml.push('</div>'); // .html5-title
+            innerHtml.push('</div>'); // .html5-title-text-wrapper
+            innerHtml.push('</div>'); // end of Video title .html5-info-bar
         }
 
         $el.css({
@@ -94,124 +94,123 @@
           .html(innerHtml.join(''));
         
         if (width > 640) {
-          thumb_img = 'maxresdefault.jpg';
+            thumb_img = 'maxresdefault.jpg';
         } else if (width > 480) {
-          thumb_img = 'sddefault.jpg';
+            thumb_img = 'sddefault.jpg';
         } else if (width > 320) {
-          thumb_img = 'hqdefault.jpg';
+            thumb_img = 'hqdefault.jpg';
         } else if (width > 120) {
-          thumb_img = 'mqdefault.jpg';
+            thumb_img = 'mqdefault.jpg';
         } else if (width == 0) { // sometimes it fails on fluid layout
-          thumb_img = 'hqdefault.jpg';
+            thumb_img = 'hqdefault.jpg';
         } else {
-          thumb_img = 'default.jpg';
+            thumb_img = 'default.jpg';
         }
         
         $thumb = $el.find('.ytp-thumbnail').css({
             'background-image': ['url(http://img.youtube.com/vi/', id, '/', thumb_img, ')'].join('')
         })
-          .addClass('lazyYT-image-loaded')
-          .on('click', function (e) {
-            e.preventDefault();
-            if (!$el.hasClass('lazyYT-video-loaded') && $thumb.hasClass('lazyYT-image-loaded')) {
-              $el.html('<iframe src="//www.youtube.com/embed/' + id + '?autoplay=1&' + youtube_parameters + '" frameborder="0" allowfullscreen></iframe>')
-                .addClass('lazyYT-video-loaded');
-            }
-          });
+            .addClass('lazyYT-image-loaded')
+            .on('click', function (e) {
+                e.preventDefault();
+                if (!$el.hasClass('lazyYT-video-loaded') && $thumb.hasClass('lazyYT-image-loaded')) {
+                    $el.html('<iframe src="//www.youtube.com/embed/' + id + '?autoplay=1&' + youtube_parameters + '" frameborder="0" allowfullscreen></iframe>')
+                        .addClass('lazyYT-video-loaded');
+                }
+            });
 
         if ((!title && display_title) || display_duration) {
-        var youtube_data_url = ['https://www.googleapis.com/youtube/v3/videos?id=', id, '&key=', settings.yt_api_key, '&part=snippet'];
-        if (display_duration) youtube_data_url.push(',contentDetails'); // this extra info now costs some quota points, so we retrieve it only when necessary. More on quota: https://developers.google.com/youtube/v3/getting-started#quota
-        
-        $.getJSON(youtube_data_url.join(''), function (data) {
-            var item = data.items[0];
-            console.log(item.snippet.title);
+            var youtube_data_url = ['https://www.googleapis.com/youtube/v3/videos?id=', id, '&key=', settings.yt_api_key, '&part=snippet'];
+            if (display_duration) youtube_data_url.push(',contentDetails'); // this extra info now costs some quota points, so we retrieve it only when necessary. More on quota: https://developers.google.com/youtube/v3/getting-started#quota
             
-            $el.find('#lazyYT-title-' + id).text(item.snippet.title);
-            
-            if (display_duration) {
-                $el.find('.video-time')
-                  .text(parseDuration(item.contentDetails.duration, settings))
-                  .show();
-                  
-              }
-            
-        });
+            $.getJSON(youtube_data_url.join(''), function (data) {
+                var item = data.items[0];
+                // console.log(item.snippet.title);
+                
+                $el.find('#lazyYT-title-' + id).text(item.snippet.title);
+                
+                if (display_duration) {
+                    $el.find('.video-time')
+                        .text(parseDuration(item.contentDetails.duration, settings))
+                        .show();
+                }
+                
+            });
         }
 
     };
     
     function parseDuration(PT, settings) {
-      var output = [];
-      var durationInSec = 0;
-      var matches = PT.match(/P(?:(\d*)Y)?(?:(\d*)M)?(?:(\d*)W)?(?:(\d*)D)?T(?:(\d*)H)?(?:(\d*)M)?(?:(\d*)S)?/i);
-      var parts = [
-        { // years
-          pos: 1,
-          multiplier: 86400 * 365
-        },
-        { // months
-          pos: 2,
-          multiplier: 86400 * 30
-        },
-        { // weeks
-          pos: 3,
-          multiplier: 604800
-        },
-        { // days
-          pos: 4,
-          multiplier: 86400
-        },
-        { // hours
-          pos: 5,
-          multiplier: 3600
-        },
-        { // minutes
-          pos: 6,
-          multiplier: 60
-        },
-        { // seconds
-          pos: 7,
-          multiplier: 1
+        var output = [];
+        var durationInSec = 0;
+        var matches = PT.match(/P(?:(\d*)Y)?(?:(\d*)M)?(?:(\d*)W)?(?:(\d*)D)?T(?:(\d*)H)?(?:(\d*)M)?(?:(\d*)S)?/i);
+        var parts = [
+            { // years
+                pos: 1,
+                multiplier: 86400 * 365
+            },
+            { // months
+                pos: 2,
+                multiplier: 86400 * 30
+            },
+            { // weeks
+                pos: 3,
+                multiplier: 604800
+            },
+            { // days
+                pos: 4,
+                multiplier: 86400
+            },
+            { // hours
+                pos: 5,
+                multiplier: 3600
+            },
+            { // minutes
+                pos: 6,
+                multiplier: 60
+            },
+            { // seconds
+                pos: 7,
+                multiplier: 1
+            }
+        ];
+        
+        for (var i = 0; i < parts.length; i++) {
+            if (typeof matches[parts[i].pos] != 'undefined') {
+                durationInSec += parseInt(matches[parts[i].pos]) * parts[i].multiplier;
+            }
         }
-      ];
-      
-      for (var i = 0; i < parts.length; i++) {
-        if (typeof matches[parts[i].pos] != 'undefined') {
-          durationInSec += parseInt(matches[parts[i].pos]) * parts[i].multiplier;
+        
+        // Hours extraction
+        if (durationInSec > 3599) {
+            output.push(parseInt(durationInSec / 3600));
+            durationInSec %= 3600;
         }
-      }
-      
-      // Hours extraction
-      if (durationInSec > 3599) {
-        output.push(parseInt(durationInSec / 3600));
-        durationInSec %= 3600;
-      }
-      // Minutes extraction with leading zero
-      output.push(('0' + parseInt(durationInSec / 60)).slice(-2));
-      // Seconds extraction with leading zero
-      output.push(('0' + durationInSec % 60).slice(-2));
-      
-      return output.join(':');
+        // Minutes extraction with leading zero
+        output.push(('0' + parseInt(durationInSec / 60)).slice(-2));
+        // Seconds extraction with leading zero
+        output.push(('0' + durationInSec % 60).slice(-2));
+        
+        return output.join(':');
     };
 
     $.fn.lazyYT = function (yt_api_key, newSettings) {
-      var defaultSettings = {
-        yt_api_key: yt_api_key,
+        var defaultSettings = {
+            yt_api_key: yt_api_key,
+            
+            loading_text: 'Loading...',
+            display_title: true,
+            default_ratio: '16:9',
+            display_duration: false,
+            callback: null, // ToDO execute callback if given
+            container_class: 'lazyYT-container'
+        };
+        var settings = $.extend(defaultSettings, newSettings);
         
-        loading_text: 'Loading...',
-        display_title: true,
-        default_ratio: '16:9',
-        display_duration: false,
-        callback: null, // ToDO execute callback if given
-        container_class: 'lazyYT-container'
-      };
-      var settings = $.extend(defaultSettings, newSettings);
-      
-      return this.each(function () {
-          var $el = $(this).addClass(settings.container_class);
-          setUp($el, settings);
-      });
+        return this.each(function () {
+            var $el = $(this).addClass(settings.container_class);
+            setUp($el, settings);
+        });
     };
 
 }(jQuery));
