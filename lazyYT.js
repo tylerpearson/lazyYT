@@ -115,7 +115,7 @@
                 e.preventDefault();
                 if (!$el.hasClass('lazyYT-video-loaded') && $thumb.hasClass('lazyYT-image-loaded')) {
                     $el.html('<iframe src="//www.youtube.com/embed/' + id + '?autoplay=1&' + youtube_parameters + '" frameborder="0" allowfullscreen></iframe>')
-                        .addClass('lazyYT-video-loaded');
+                        .addClass(settings.video_loaded_class);
                 }
             });
 
@@ -203,6 +203,9 @@
             default_ratio: '16:9',
             display_duration: false,
             callback: null, // ToDO execute callback if given
+            
+            // Advanced settings
+            video_loaded_class: 'lazyYT-video-loaded',
             container_class: 'lazyYT-container'
         };
         var settings = $.extend(defaultSettings, newSettings);
