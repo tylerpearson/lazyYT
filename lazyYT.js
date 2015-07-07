@@ -111,37 +111,83 @@
             }
           });
 
-        $.getJSON('https://gdata.youtube.com/feeds/api/videos/' + id + '?v=2&alt=json', function (data) {
-            $el.find('#lazyYT-title-' + id).text(data.entry.title.$t);
+        var youtube_data_url = ['https://www.googleapis.com/youtube/v3/videos?id=', id, '&key=', settings.yt_api_key, '&part=snippet'];
+        if (display_duration) youtube_data_url.push(',contentDetails'); // this extra info now costs some quota points, so we retrieve it only when necessary. More on quota: https://developers.google.com/youtube/v3/getting-started#quota
+        
+        $.getJSON(youtube_data_url.join(''), function (data) {
+            var item = data.items[0];
+            
+            $el.find('#lazyYT-title-' + id).text(item.snippet.title);
             
             if (display_duration) {
-              var duration = data.entry.media$group.yt$duration.seconds;
-              if (duration > 0) {
-                
-                var time_string = [];
-                
-                // Hours extraction
-                if (duration > 3599) {
-                  time_string.push(parseInt(duration / 3600));
-                  duration %= 3600;
-                }
-                // Minutes extraction with leading zero
-                time_string.push(('0' + parseInt(duration / 60)).slice(-2));
-                // Seconds extraction with leading zero
-                time_string.push(('0' + duration % 60).slice(-2));
-                
                 $el.find('.video-time')
-                  .text(time_string.join(':'))
+                  .text(parseDuration(item.contentDetails.duration, settings))
                   .show();
                   
               }
-            }
+            
         });
 
-    }
+    };
+    
+    function parseDuration(PT, settings) {
+      var output = [];
+      var durationInSec = 0;
+      var matches = PT.match(/P((\d*)Y)?((\d*)M)?((\d*)W)?((\d*)D)?T((\d*)H)?((\d*)M)?((\d*)S)?/i);
+      var parts = [
+        { // years
+          pos: 2,
+          multiplier: 86400 * 365
+        },
+        { // months
+          pos: 4,
+          multiplier: 86400 * 30
+        },
+        { // weeks
+          pos: 6,
+          multiplier: 604800
+        },
+        { // days
+          pos: 8,
+          multiplier: 86400
+        },
+        { // hours
+          pos: 10,
+          multiplier: 3600
+        },
+        { // minutes
+          pos: 12,
+          multiplier: 60
+        },
+        { // seconds
+          pos: 14,
+          multiplier: 1
+        }
+      ];
+      
+      for (var i = 0; i < parts.length; i++) {
+        if (typeof matches[parts[i].pos] != 'undefined') {
+          durationInSec += parseInt(matches[parts[i].pos]) * parts[i].multiplier;
+        }
+      }
+      
+      // Hours extraction
+      if (durationInSec > 3599) {
+        output.push(parseInt(durationInSec / 3600));
+        durationInSec %= 3600;
+      }
+      // Minutes extraction with leading zero
+      output.push(('0' + parseInt(durationInSec / 60)).slice(-2));
+      // Seconds extraction with leading zero
+      output.push(('0' + durationInSec % 60).slice(-2));
+      
+      return output.join(':');
+    };
 
-    $.fn.lazyYT = function (newSettings) {
+    $.fn.lazyYT = function (yt_api_key, newSettings) {
       var defaultSettings = {
+        yt_api_key: yt_api_key,
+        
         loading_text: 'Loading...',
         default_ratio: '16:9',
         display_duration: false,

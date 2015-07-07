@@ -71,6 +71,16 @@
                 <div class="js-lazyYT" data-youtube-id="RPO4tbV4UHk"></div>
               </div>
               
+              <div class="item even">
+                <div class="js-lazyYT" data-youtube-id="04cF1m6Jxu8"></div>
+              </div>
+              <div class="item odd">
+                <div class="js-lazyYT" data-youtube-id="gQEyezu7G20" data-display-duration="true"></div>
+              </div>
+              <div class="item even">
+                <div class="js-lazyYT" data-youtube-id="nwN6dPNXklg"></div>
+              </div>
+              
               <div style="color: #eee; text-align: center;">Just take a look how fast they all load!</div>
               
             </div>
@@ -81,10 +91,10 @@
         <script src="../lazyYT.js"></script>
         <script>
         $( document ).ready(function() {
-            $('.item.odd .js-lazyYT').lazyYT();
+            $('.item.odd .js-lazyYT').lazyYT('AIzaSyCawA87g_pgTbSNPhiWAemy-mFKszJGl4M');
             
             // Pass some parameters
-            $('.item.even .js-lazyYT').lazyYT({
+            $('.item.even .js-lazyYT').lazyYT('AIzaSyCawA87g_pgTbSNPhiWAemy-mFKszJGl4M', {
               loading_text: 'It is loading!...',
               display_duration: true,
               default_ratio: '16:9'
