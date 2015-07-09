@@ -9,7 +9,7 @@ Since 2015-07-08 it uses [Youtube API v3](https://developers.google.com/youtube/
 
 ## Demo
 
-1. [Demo of v1.1.0](http://works.daugilas.com/lazyYT/demo/index.html)
+1. [Demo of v1.1.1](http://works.daugilas.com/lazyYT/demo/index.html)
 
 ## Setup
 
@@ -32,6 +32,7 @@ Default parameters:
 
 ```javascript
 $('.js-lazyYT').lazyYT({
+  youtube_parameters: 'rel=0', // youtube URL parameters: https://developers.google.com/youtube/player_parameters#Parameters
   loading_text: 'Loading...', // displayed instead of video title while its loading
   display_title: true, // display title in video's info bar
   default_ratio: '16:9',
