@@ -28,6 +28,8 @@
         
         ratio = ratio.split(":");
         
+        youtube_parameters += '&' + settings.youtube_parameters;
+        
         if (typeof display_title != "boolean") {
             display_title = settings.display_title;
         }
@@ -114,7 +116,7 @@
             .on('click', function (e) {
                 e.preventDefault();
                 if (!$el.hasClass('lazyYT-video-loaded') && $thumb.hasClass('lazyYT-image-loaded')) {
-                    $el.html('<iframe src="//www.youtube.com/embed/' + id + '?autoplay=1&' + youtube_parameters + '" frameborder="0" allowfullscreen></iframe>')
+                    $el.html('<iframe src="//www.youtube.com/embed/' + id + '?' + youtube_parameters + '&autoplay=1" frameborder="0" allowfullscreen></iframe>')
                         .addClass(settings.video_loaded_class);
                 }
             });
@@ -198,6 +200,7 @@
         var defaultSettings = {
             yt_api_key: yt_api_key,
             
+            youtube_parameters: 'rel=0',
             loading_text: 'Loading...',
             display_title: true,
             default_ratio: '16:9',
