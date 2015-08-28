@@ -37,6 +37,9 @@ $('.js-lazyYT').lazyYT({
   display_title: true, // display title in video's info bar
   default_ratio: '16:9',
   display_duration: false, // display video duration in bottom right
+  callback: function() {
+    console.log(this);
+  },
   
   // Advanced settings
   video_loaded_class: 'lazyYT-video-loaded', // adds this class after video loads into container

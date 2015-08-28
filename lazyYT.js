@@ -205,7 +205,7 @@
             display_title: true,
             default_ratio: '16:9',
             display_duration: false,
-            callback: null, // ToDO execute callback if given
+            callback: null,
             
             // Advanced settings
             video_loaded_class: 'lazyYT-video-loaded',
@@ -216,6 +216,11 @@
         return this.each(function () {
             var $el = $(this).addClass(settings.container_class);
             setUp($el, settings);
+            
+            // execute callback
+            if (typeof settings.callback == 'function') { // make sure the callback is a function
+                settings.callback.call(this); // brings the scope to the callback
+            }
         });
     };
 

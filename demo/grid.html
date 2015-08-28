@@ -90,6 +90,11 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="../lazyYT.js"></script>
         <script>
+        
+        var your_fav_function = function(args) {
+          console.log(this);
+        };
+        
         $( document ).ready(function() {
             $('.item.odd .js-lazyYT').lazyYT('AIzaSyCawA87g_pgTbSNPhiWAemy-mFKszJGl4M');
             
@@ -98,7 +103,8 @@
               loading_text: 'It is loading!...',
               display_duration: true,
               youtube_parameters: 'rel=1',
-              default_ratio: '16:9'
+              default_ratio: '16:9',
+              callback: your_fav_function
             });
         });
         </script>
