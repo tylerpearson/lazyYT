@@ -29,46 +29,65 @@
  * Video Title (YouTube style)
  */
 
-.lazyYT-container .html5-info-bar {
-  position: absolute;
+.ytp-gradient-top {
   top: 0;
-  z-index: 935;
+  z-index: 21;
   width: 100%;
-  height: 30px;
-  overflow: hidden;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 12px;
-  color: #fff;
-  background-color: rgba(0, 0, 0, 0.8);
+  height: 98px;
+  position: absolute;
+  pointer-events: none;
+  background-repeat: repeat-x;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAABiCAQAAAA7fHH2AAAAQUlEQVQYV22KQQoAIAzDyv7/Et/oVlGZVCfkkIYamsENXESyi8vc0u/PKZ6o8+7fZ0h8ShRYnD+BFKToRJkHFpkM2hZSxuyWpEYAAAAASUVORK5CYII=);
   -webkit-transition: opacity 0.25s cubic-bezier(0, 0, 0.2, 1);
      -moz-transition: opacity 0.25s cubic-bezier(0, 0, 0.2, 1);
           transition: opacity 0.25s cubic-bezier(0, 0, 0.2, 1);
 }
 
-.lazyYT-container .html5-title {
-  padding-right: 6px;
-  padding-left: 12px;
+.ytp-chrome-top {
+  position: absolute;
+  left: 12px;
+  right: 10px;
+  top: 0;
+  font-family: Roboto,Arial,Helvetica,sans-serif;
+  color: #eee;
+  text-align: left;
+  direction: ltr;
+  font-size: 11px;
+  line-height: 1.3;
+  -webkit-font-smoothing: antialiased;
+  text-shadow: 0 0 2px rgba(0,0,0,.5);
+  z-index: 60;
+  -moz-transition: opacity .25s cubic-bezier(0.0,0.0,0.2,1);
+  -webkit-transition: opacity .25s cubic-bezier(0.0,0.0,0.2,1);
+  transition: opacity .25s cubic-bezier(0.0,0.0,0.2,1);
 }
 
-.lazyYT-container .html5-title-text-wrapper {
-  overflow: hidden;
-  -o-text-overflow: ellipsis;
-     text-overflow: ellipsis;
-  word-wrap: normal;
-  white-space: nowrap;
+.ytp-title {
+    font-size: 150%;
+    overflow: hidden;
+    padding-right: 20px;
+    white-space: nowrap;
 }
 
-.lazyYT-container .html5-title-text {
-  width: 100%;
-  font-size: 13px;
-  line-height: 30px;
-  color: #ccc;
-  text-decoration: none;
+.ytp-title-text {
+    padding-top: 15px;
+    display: inline-block;
+    line-height: 1.1;
+    vertical-align: top;
+    max-width: 100%;
+    margin-left: 4px;
 }
 
-.lazyYT-container .html5-title-text:hover {
-  color: #fff;
-  text-decoration: underline;
+.ytp-title-link {
+    max-width: 100%;
+    overflow: hidden;
+    color: #eee;
+    text-decoration: none;
+    white-space: nowrap;
+    word-wrap: normal;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    float: left;
 }
 
 /*
@@ -76,10 +95,18 @@
  */
 
 .ytp-thumbnail {
-  padding-bottom: inherit;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 12;
   cursor: pointer;
   background-position: 50% 50%;
   background-repeat: no-repeat;
+  -moz-transition: opacity .5s cubic-bezier(0.0,0.0,0.2,1);
+  -webkit-transition: opacity .5s cubic-bezier(0.0,0.0,0.2,1);
+  transition: opacity .5s cubic-bezier(0.0,0.0,0.2,1);
   -webkit-background-size: cover;
      -moz-background-size: cover;
        -o-background-size: cover;
@@ -89,30 +116,53 @@
 /*
  * Play button (YouTube style)
  */
+.ytp-button:focus,
+.ytp-button {
+  border: none;
+  outline: 0;
+  color: inherit;
+  text-align: inherit;
+  font-size: 100%;
+  font-family: inherit;
+  cursor: default;
+  line-height: inherit;
+  
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
 
 .ytp-large-play-button {
   position: absolute;
-  top: 50% !important;
-  left: 50% !important;
-  width: 86px !important;
-  height: 60px !important;
-  padding: 0 !important;
-  margin: -29px 0 0 -42px !important;
-  font-size: normal !important;
-  font-weight: normal !important;
-  line-height: 1 !important;
-  opacity: .9;
+  left: 50%;
+  top: 50%;
+  width: 68px;
+  height: 48px;
+  margin-left: -34px;
+  margin-top: -24px;
+  -moz-transition: opacity .25s cubic-bezier(0.0,0.0,0.2,1);
+  -webkit-transition: opacity .25s cubic-bezier(0.0,0.0,0.2,1);
+  transition: opacity .25s cubic-bezier(0.0,0.0,0.2,1);
 }
 
-.ytp-large-play-button-svg {
-  opacity: .9;
-  fill: #1f1f1f;
+.ytp-button:not([aria-disabled=true]):not([disabled]):not([aria-hidden=true]) {
+  cursor: pointer;
 }
 
-.lazyYT-image-loaded:hover .ytp-large-play-button-svg,
-.ytp-large-play-button:focus .ytp-large-play-button-svg {
-  opacity: 1;
-  fill: #cc181e;
+.ytp-large-play-button-bg {
+    -moz-transition: fill .1s cubic-bezier(0.4, 0.0, 1, 1), opacity .1s cubic-bezier(0.4, 0.0, 1, 1);
+    -webkit-transition: fill .1s cubic-bezier(0.4, 0.0, 1, 1), opacity .1s cubic-bezier(0.4, 0.0, 1, 1);
+    transition: fill .1s cubic-bezier(0.4, 0.0, 1, 1), opacity .1s cubic-bezier(0.4, 0.0, 1, 1);
+    fill: #1f1f1f;
+    opacity: .9
+}
+
+.ytp-thumbnail:hover .ytp-large-play-button-bg {
+    -moz-transition: fill .1s cubic-bezier(0.0, 0.0, 0.2, 1), opacity .1s cubic-bezier(0.0, 0.0, 0.2, 1);
+    -webkit-transition: fill .1s cubic-bezier(0.0, 0.0, 0.2, 1), opacity .1s cubic-bezier(0.0, 0.0, 0.2, 1);
+    transition: fill .1s cubic-bezier(0.0, 0.0, 0.2, 1), opacity .1s cubic-bezier(0.0, 0.0, 0.2, 1);
+    fill: #cc181e;
+    opacity: 1
 }
 
 /*
