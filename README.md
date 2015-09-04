@@ -9,7 +9,7 @@ Since 2015-07-08 it uses [Youtube API v3](https://developers.google.com/youtube/
 
 ## Demo
 
-1. [Demo of v1.2](http://works.daugilas.com/lazyYT/demo/index.html)
+1. [Demo of v1.2.1](http://works.daugilas.com/lazyYT/demo/index.html)
 
 ## Setup
 

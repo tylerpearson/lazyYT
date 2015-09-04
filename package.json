@@ -1,21 +1,24 @@
 {
   "name": "lazyyt",
-  "version": "1.2",
+  "version": "1.2.1",
   "description": "A jQuery plugin to lazy load those darn slow Youtube iframe videos",
   "main": "lazyyt.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/tylerpearson/lazyYT.git"
+    "url": "git://github.com/Daugilas/lazyYT.git"
   },
   "keywords": [
     "jQuery",
     "lazy load",
     "youtube"
   ],
-  "author": "Tyler Pearson <ty.pearson@gmail.com> (http://tylerp.me)",
+  "authors": [
+    "Daugilas Kakaras <daugilas@gmail.com> (http://daugilas.com)",
+    "Tyler Pearson <ty.pearson@gmail.com> (http://tylerp.me)"
+  ],
   "license": "CC",
   "bugs": {
-    "url": "https://github.com/tylerpearson/lazyYT/issues"
+    "url": "https://github.com/Daugilas/lazyYT/issues"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
