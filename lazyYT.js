@@ -125,6 +125,11 @@
                 if (!$el.hasClass('lazyYT-video-loaded') && $thumb.hasClass('lazyYT-image-loaded')) {
                     $el.html('<iframe src="//www.youtube.com/embed/' + id + '?' + youtube_parameters + '&autoplay=1" frameborder="0" allowfullscreen></iframe>')
                         .addClass(settings.video_loaded_class);
+
+                    // execute callback
+                    if (typeof settings.callback == 'function') { // make sure the callback is a function
+                        settings.callback.call($el); // brings the scope to the callback
+                    }
                 }
             });
 
@@ -223,11 +228,6 @@
         return this.each(function () {
             var $el = $(this).addClass(settings.container_class);
             setUp($el, settings);
-            
-            // execute callback
-            if (typeof settings.callback == 'function') { // make sure the callback is a function
-                settings.callback.call(this); // brings the scope to the callback
-            }
         });
     };
 
