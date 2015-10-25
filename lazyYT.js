@@ -105,6 +105,10 @@
         $.getJSON('//gdata.youtube.com/feeds/api/videos/' + id + '?v=2&alt=json', function (data) {
             $el.find('#lazyYT-title-' + id).text(data.entry.title.$t);
         });
+        // Youtube API v3 key is needed to query the video title. See here how to obtain an api key: https://developers.google.com/youtube/v3/getting-started
+        $.getJSON('//www.googleapis.com/youtube/v3/videos?id=' + id + '&key=<your-api-browser-key>&fields=items(snippet(title))&part=snippet', function (data) {
+            $el.find('#lazyYT-title-' + id).text(data.items[0].snippet.title);
+        });
 
     }
 
