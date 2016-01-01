@@ -24,7 +24,7 @@ Since 2015-07-08 it uses [Youtube API v3](https://developers.google.com/youtube/
 5. Any [optional parameters you wanted passed to the iframe url](https://developers.google.com/youtube/player_parameters) should be added to `data-parameters`.
 6. Get it started with `$('.lazyYT').lazyYT(YOUR_YOUTUBE_API_KEY);`
 
-Note: make sure to crate your own API_KEY, the one used in demo will not work for your domain for long.
+Note: make sure to create your own API_KEY, the one used in demo will not work for your domain for long.
 
 ### Parameters / Settings
 
