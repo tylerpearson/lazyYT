@@ -24,6 +24,7 @@
             $thumb,
             thumb_img,
             loading_text = $el.text() ? $el.text() : settings.loading_text,
+            youtube_data_url = ['https://www.googleapis.com/youtube/v3/videos?id=', id, '&key=', settings.yt_api_key, '&part=snippet'].join(''),
             youtube_parameters = $el.data('parameters') || '';
         
         ratio = ratio.split(":");
@@ -76,6 +77,22 @@
             innerHtml.push('<path d="M 45.02,23.46 45.32,23.28 26.96,13.67 43.32,24.34 45.02,23.46 z" fill="#ccc"></path>');
           innerHtml.push('</svg>');
           innerHtml.push('</button>'); // end of .ytp-large-play-button
+          
+          innerHtml.push('<div class="ytp-spinner" data-layer="4">');
+            innerHtml.push('<span class="ytp-spinner-svg">');
+              innerHtml.push('<svg height="100%" version="1.1" viewBox="0 0 22 22" width="100%">');
+                innerHtml.push('<svg x="7" y="1"><circle class="ytp-spinner-dot ytp-spinner-dot-0" cx="4" cy="4" r="2"></circle></svg>');
+                innerHtml.push('<svg x="11" y="3"><circle class="ytp-spinner-dot ytp-spinner-dot-1" cx="4" cy="4" r="2"></circle></svg>');
+                innerHtml.push('<svg x="13" y="7"><circle class="ytp-spinner-dot ytp-spinner-dot-2" cx="4" cy="4" r="2"></circle></svg>');
+                innerHtml.push('<svg x="11" y="11"><circle class="ytp-spinner-dot ytp-spinner-dot-3" cx="4" cy="4" r="2"></circle></svg>');
+                innerHtml.push('<svg x="7" y="13"><circle class="ytp-spinner-dot ytp-spinner-dot-4" cx="4" cy="4" r="2"></circle></svg>');
+                innerHtml.push('<svg x="3" y="11"><circle class="ytp-spinner-dot ytp-spinner-dot-5" cx="4" cy="4" r="2"></circle></svg>');
+                innerHtml.push('<svg x="1" y="7"><circle class="ytp-spinner-dot ytp-spinner-dot-6" cx="4" cy="4" r="2"></circle></svg>');
+                innerHtml.push('<svg x="3" y="3"><circle class="ytp-spinner-dot ytp-spinner-dot-7" cx="4" cy="4" r="2"></circle></svg>');
+              innerHtml.push('</svg>');
+            innerHtml.push('</span>');
+            innerHtml.push('<div class="ytp-spinner-message" style="display: none;">If playback doesn\'t begin shortly, try restarting your device.</div>');
+          innerHtml.push('</div>'); // end of .ytp-spinner
         
           // video time from YouTube (exactly as it is in YouTube)
           if (display_duration) {
@@ -102,42 +119,24 @@
         })
           .html(innerHtml.join(''));
         
-        if (width > 640) {
-            thumb_img = 'maxresdefault.jpg';
-        } else if (width > 480) {
-            thumb_img = 'sddefault.jpg';
-        } else if (width > 320) {
-            thumb_img = 'hqdefault.jpg';
-        } else if (width > 120) {
-            thumb_img = 'mqdefault.jpg';
-        } else if (width == 0) { // sometimes it fails on fluid layout
-            thumb_img = 'hqdefault.jpg';
-        } else {
-            thumb_img = 'default.jpg';
-        }
-        
-        $thumb = $el.find('.ytp-thumbnail').css({
-            'background-image': ['url(http://img.youtube.com/vi/', id, '/', thumb_img, ')'].join('')
-        })
-            .addClass('lazyYT-image-loaded')
-            .on('click', function (e) {
-                e.preventDefault();
-                if (!$el.hasClass('lazyYT-video-loaded') && $thumb.hasClass('lazyYT-image-loaded')) {
-                    $el.html('<iframe src="//www.youtube.com/embed/' + id + '?' + youtube_parameters + '&autoplay=1" frameborder="0" allowfullscreen></iframe>')
-                        .addClass(settings.video_loaded_class);
+        $thumb = $el.find('.ytp-thumbnail').on('click', function (e) {
+            e.preventDefault();
+            if (!$el.hasClass('lazyYT-video-loaded')) {
+                $el.html('<iframe src="//www.youtube.com/embed/' + id + '?' + youtube_parameters + '&autoplay=1" frameborder="0" allowfullscreen></iframe>')
+                    .addClass(settings.video_loaded_class);
 
-                    // execute callback
-                    if (typeof settings.callback == 'function') { // make sure the callback is a function
-                        settings.callback.call($el); // brings the scope to the callback
-                    }
+                // execute callback
+                if (typeof settings.callback == 'function') { // make sure the callback is a function
+                    settings.callback.call($el); // brings the scope to the callback
                 }
-            });
-
+            }
+        });
+        loadBackgroundImage(id, width, $thumb, youtube_data_url);
+        
         if ((!title && display_title) || display_duration) {
-            var youtube_data_url = ['https://www.googleapis.com/youtube/v3/videos?id=', id, '&key=', settings.yt_api_key, '&part=snippet'];
-            if (display_duration) youtube_data_url.push(',contentDetails'); // this extra info now costs some quota points, so we retrieve it only when necessary. More on quota: https://developers.google.com/youtube/v3/getting-started#quota
+            if (display_duration) youtube_data_url += ',contentDetails'; // this extra info now costs some quota points, so we retrieve it only when necessary. More on quota: https://developers.google.com/youtube/v3/getting-started#quota
             
-            $.getJSON(youtube_data_url.join(''), function (data) {
+            $.getJSON(youtube_data_url, function (data) {
                 var item = data.items[0];
                 // console.log(item.snippet.title);
                 
@@ -153,6 +152,69 @@
         }
 
     };
+    
+    function loadBackgroundImage(id, width, $thumb, youtube_data_url) {
+      var thumb_img,
+          thumb_url,
+          downloadingImage = new Image();
+      
+      if (width == 0) width = $thumb.width(); // sometimes (on fluid layout) it fails to get proper width immediately - so we try here again
+      if (width > 640) {
+          thumb_img = 'maxresdefault.jpg';
+      } else if (width > 480) {
+          thumb_img = 'sddefault.jpg';
+      } else if (width > 320) {
+          thumb_img = 'hqdefault.jpg';
+      } else if (width > 120) {
+          thumb_img = 'mqdefault.jpg';
+      } else if (width == 0) { // sometimes it still might fail on fluid layout
+          thumb_img = 'hqdefault.jpg';
+      } else {
+          thumb_img = 'default.jpg';
+      }
+      
+      thumb_url = ['https://img.youtube.com/vi/', id, '/', thumb_img].join('');
+      
+      downloadingImage.onload = function(data) {
+        var naturalWidth = data.path[0].naturalWidth;
+        
+        /*
+         * Sometimes instead of an expected higher resolution image we get this 120x90 px
+         * default img: https://img.youtube.com/vi/default.jpg
+         * That sucks. So lets extract a proper thumbnail from YouTube API!
+         */
+        if (naturalWidth < width) {
+            $.getJSON(youtube_data_url, function (data) {
+                var item = data.items[0],
+                    thumbs = item.snippet.thumbnails;
+                if (width == 0) width = $thumb.width(); // just to make sure we have width
+                if (width > 640 && typeof thumbs.maxres == 'object') {
+                    thumb_url = thumbs.maxres.url;
+                } else if (width > 480 && typeof thumbs.standard == 'object') {
+                    thumb_url = thumbs.standard.url;
+                } else if (width > 320 && typeof thumbs.high == 'object') {
+                    thumb_url = thumbs.high.url;
+                } else if (width > 120 && typeof thumbs.medium == 'object') {
+                    thumb_url = thumbs.medium.url;
+                } else {
+                    thumb_url = thumbs['default'].url;
+                }
+                setBackgroundImage($thumb, thumb_url);
+            });
+        } else {
+            setBackgroundImage($thumb, this.src);
+        }
+        
+      };
+      
+      downloadingImage.src = thumb_url;
+    }
+    
+    function setBackgroundImage($thumb, url) {
+      $thumb.css({
+        'background-image': ['url(', url, ')'].join('')
+      }).addClass('lazyYT-image-loaded');
+    }
     
     function parseDuration(PT, settings) {
         var output = [];

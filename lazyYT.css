@@ -113,6 +113,121 @@
           background-size: cover;
 }
 
+
+.lazyYT-image-loaded .ytp-spinner {
+  display: none;
+}
+.ytp-thumbnail button.ytp-button {
+  visibility: hidden;
+}
+.ytp-thumbnail.lazyYT-image-loaded  button.ytp-button {
+  visibility: visible;
+}
+
+/*
+ * Spinner pre-loader
+ */
+.ytp-spinner {
+  position: absolute;
+  left: 45%;
+  top: 45%;
+  width: 10%;
+  height: 10%;
+  z-index: 16;
+}
+
+.ytp-spinner-message {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  width: 300px;
+  font-size: 127%;
+  line-height: 182%;
+  margin-left: -150px;
+  display: none;
+  text-align: center;
+  background-color: black;
+  opacity: .5
+}@keyframes ytp-spinner-dot-fade{0%{opacity:.5;-moz-transform:scale(1.2,1.2);-ms-transform:scale(1.2,1.2);-webkit-transform:scale(1.2,1.2);transform:scale(1.2,1.2)}50%{opacity:.15;-moz-transform:scale(.9,.9);-ms-transform:scale(.9,.9);-webkit-transform:scale(.9,.9);transform:scale(.9,.9)}
+
+to {
+  opacity: .15;
+  -moz-transform: scale(.85,.85);
+  -ms-transform: scale(.85,.85);
+  -webkit-transform: scale(.85,.85);
+  transform: scale(.85,.85)
+}}@-moz-keyframes ytp-spinner-dot-fade{0%{opacity:.5;-moz-transform:scale(1.2,1.2);-ms-transform:scale(1.2,1.2);-webkit-transform:scale(1.2,1.2);transform:scale(1.2,1.2)}50%{opacity:.15;-moz-transform:scale(.9,.9);-ms-transform:scale(.9,.9);-webkit-transform:scale(.9,.9);transform:scale(.9,.9)}
+
+to {
+  opacity: .15;
+  -moz-transform: scale(.85,.85);
+  -ms-transform: scale(.85,.85);
+  -webkit-transform: scale(.85,.85);
+  transform: scale(.85,.85)
+}}@-webkit-keyframes ytp-spinner-dot-fade{0%{opacity:.5;-moz-transform:scale(1.2,1.2);-ms-transform:scale(1.2,1.2);-webkit-transform:scale(1.2,1.2);transform:scale(1.2,1.2)}50%{opacity:.15;-moz-transform:scale(.9,.9);-ms-transform:scale(.9,.9);-webkit-transform:scale(.9,.9);transform:scale(.9,.9)}
+
+to {
+  opacity: .15;
+  -moz-transform: scale(.85,.85);
+  -ms-transform: scale(.85,.85);
+  -webkit-transform: scale(.85,.85);
+  transform: scale(.85,.85)
+}}
+
+.ytp-spinner-dot {
+  -moz-animation: ytp-spinner-dot-fade .8s ease infinite;
+  -webkit-animation: ytp-spinner-dot-fade .8s ease infinite;
+  animation: ytp-spinner-dot-fade .8s ease infinite;
+  opacity: 0;
+  fill: #ccc;
+  -moz-transform-origin: 4px 4px;
+  -ms-transform-origin: 4px 4px;
+  -webkit-transform-origin: 4px 4px;
+  transform-origin: 4px 4px
+}
+
+.ytp-spinner-dot-1 {
+  -moz-animation-delay: .1s;
+  -webkit-animation-delay: .1s;
+  animation-delay: .1s
+}
+
+.ytp-spinner-dot-2 {
+  -moz-animation-delay: .2s;
+  -webkit-animation-delay: .2s;
+  animation-delay: .2s
+}
+
+.ytp-spinner-dot-3 {
+  -moz-animation-delay: .3s;
+  -webkit-animation-delay: .3s;
+  animation-delay: .3s
+}
+
+.ytp-spinner-dot-4 {
+  -moz-animation-delay: .4s;
+  -webkit-animation-delay: .4s;
+  animation-delay: .4s
+}
+
+.ytp-spinner-dot-5 {
+  -moz-animation-delay: .5s;
+  -webkit-animation-delay: .5s;
+  animation-delay: .5s
+}
+
+.ytp-spinner-dot-6 {
+  -moz-animation-delay: .6s;
+  -webkit-animation-delay: .6s;
+  animation-delay: .6s
+}
+
+.ytp-spinner-dot-7 {
+  -moz-animation-delay: .7s;
+  -webkit-animation-delay: .7s;
+  animation-delay: .7s
+}
+
 /*
  * Play button (YouTube style)
  */
