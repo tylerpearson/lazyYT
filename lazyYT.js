@@ -176,7 +176,7 @@
       thumb_url = ['https://img.youtube.com/vi/', id, '/', thumb_img].join('');
       
       downloadingImage.onload = function(data) {
-        var naturalWidth = data.path[0].naturalWidth;
+        var naturalWidth = getOnloadDataParam(data, 'naturalWidth');
         
         /*
          * Sometimes instead of an expected higher resolution image we get this 120x90 px
@@ -214,6 +214,18 @@
       $thumb.css({
         'background-image': ['url(', url, ')'].join('')
       }).addClass('lazyYT-image-loaded');
+    }
+    
+    function getOnloadDataParam(data, key) {
+      var img_data;
+      if (typeof data.path == 'object') {
+        img_data = data.path[0];
+      } else if(typeof data.target == 'object') {
+        img_data = data.target;
+      } else {
+        img_data = data.originalTarget;
+      }
+      return img_data.naturalWidth;
     }
     
     function parseDuration(PT, settings) {
