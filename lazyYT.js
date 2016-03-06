@@ -1,6 +1,6 @@
 /*!
 * lazyYT (lazy load YouTube videos)
-* v1.2.1 - 2015-09-04
+* v1.3.0 - 2016-03-06
 * (CC) This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.
 * http://creativecommons.org/licenses/by-sa/4.0/
 * Contributors: https://github.com/tylerpearson/lazyYT/graphs/contributors || https://github.com/daugilas/lazyYT/graphs/contributors
@@ -121,7 +121,7 @@
         
         $thumb = $el.find('.ytp-thumbnail').on('click', function (e) {
             e.preventDefault();
-            if (!$el.hasClass('lazyYT-video-loaded')) {
+            if (!$el.hasClass(settings.video_loaded_class)) {
                 $el.html('<iframe src="//www.youtube.com/embed/' + id + '?' + youtube_parameters + '&autoplay=1" frameborder="0" allowfullscreen></iframe>')
                     .addClass(settings.video_loaded_class);
 

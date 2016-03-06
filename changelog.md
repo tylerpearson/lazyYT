@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+Version 1.3.0 *(2016-03-06)*
+----------------------------
+
+ * Fix: Thumbnail validation. Fallback to smaller images
+ * Fix: minor fixes for FireFox and trivial updates
+
 Version 1.2.1 *(2015-09-04)*
 ----------------------------
 
