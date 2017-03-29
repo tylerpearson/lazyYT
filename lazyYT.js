@@ -122,7 +122,7 @@
         $thumb = $el.find('.ytp-thumbnail').on('click', function (e) {
             e.preventDefault();
             if (!$el.hasClass(settings.video_loaded_class)) {
-                $el.html('<iframe src="//www.youtube.com/embed/' + id + '?' + youtube_parameters + '&autoplay=1" frameborder="0" allowfullscreen></iframe>')
+                $el.html('<iframe src="https://www.youtube.com/embed/' + id + '?' + youtube_parameters + '&autoplay=1" frameborder="0" allowfullscreen></iframe>')
                     .addClass(settings.video_loaded_class);
 
                 // execute callback
